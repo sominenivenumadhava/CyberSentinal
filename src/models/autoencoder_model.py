@@ -303,3 +303,4 @@ class CyberSentinelAutoencoder:
         instance.net_.eval()
         instance.is_fitted_ = True
         return instance
+

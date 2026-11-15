@@ -20,3 +20,4 @@ def setup_logging(log_level: str = None) -> logging.Logger:
     return logger
 
 logger = setup_logging()
+

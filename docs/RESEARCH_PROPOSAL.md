@@ -116,3 +116,4 @@ CyberSentinel leverages the **CICIDS2017** benchmark from the Canadian Institute
 - **Phase 5 (Day 5 - API & Event Bus)**: REST endpoints for streaming telemetry ingestion, alert dispatch, and agent triggering.
 - **Phase 6 (Day 6 - Frontend SOC Console)**: Real-time dashboard with alert feeds, agent thoughts/logs, and playbook approvals.
 - **Phase 7 (Day 7 - Validation & Hardening)**: Full end-to-end integration testing, adversarial resilience checks, and final research report.
+

@@ -1,1 +1,2 @@
 """CyberSentinel Configuration Package."""
+
