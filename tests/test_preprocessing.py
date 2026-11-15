@@ -112,3 +112,4 @@ def test_train_inference_preprocessing_consistency(sample_raw_flow_data, tmp_pat
     np.testing.assert_allclose(
         X_infer_transformed.values, X_loaded_transformed.values, rtol=1e-5
     )
+

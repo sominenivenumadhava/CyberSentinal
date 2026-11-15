@@ -40,3 +40,4 @@ def test_scan_and_summarize(sample_raw_flow_data, tmp_path):
     assert "BENIGN" in summary["category_counts"]
     assert "DDoS" in summary["category_counts"]
     assert summary["total_flow_features"] > 0
+

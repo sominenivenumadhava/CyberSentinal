@@ -164,3 +164,4 @@ def generate_cicids2017_seed_csv(
 if __name__ == "__main__":
     out_file = settings.DATA_RAW_DIR / "MachineLearningCSV" / "CICIDS2017_sample_seed.csv"
     generate_cicids2017_seed_csv(out_file)
+

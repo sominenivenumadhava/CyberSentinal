@@ -87,3 +87,4 @@ def sample_raw_flow_data() -> pd.DataFrame:
     df.loc[15] = df.loc[14]
 
     return df
+

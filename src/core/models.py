@@ -70,3 +70,4 @@ class DatasetRegistry(Base):
     processed_at = Column(DateTime, default=datetime.utcnow)
     file_hash_sha256 = Column(String(64), nullable=True)
     metadata_json = Column(JSON, nullable=True)
+

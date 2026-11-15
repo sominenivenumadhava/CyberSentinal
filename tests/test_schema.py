@@ -38,3 +38,4 @@ def test_identifier_disjointness():
     """Ensure no identifier column accidentally overlaps with canonical flow features."""
     for col in IDENTIFIER_COLUMNS:
         assert col not in CANONICAL_FLOW_FEATURES
+

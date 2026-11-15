@@ -218,3 +218,4 @@ class FlowPreprocessor(BaseEstimator, TransformerMixin):
     def load(cls, file_path: Path) -> "FlowPreprocessor":
         """Deserialize trained preprocessor."""
         return joblib.load(file_path)
+

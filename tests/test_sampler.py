@@ -42,3 +42,4 @@ def test_reproducibility():
 
     pd.testing.assert_frame_equal(res1[0], res2[0])
     pd.testing.assert_series_equal(res1[2], res2[2])
+

@@ -1,0 +1,11 @@
+{
+  "model_type": "FlowAutoencoder",
+  "input_dim": 65,
+  "latent_dim": 12,
+  "threshold": 0.18511146312259666,
+  "threshold_strategy": "val_f1_optimal (Val F1: 0.4010)",
+  "benign_val_mean_error": 0.2987769842147827,
+  "benign_val_std_error": 0.07988066971302032,
+  "learning_rate": 0.001,
+  "random_seed": 42
+}

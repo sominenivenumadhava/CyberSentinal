@@ -1,0 +1,23 @@
+{
+  "model_name": "TabNet Classifier",
+  "accuracy": 0.5267,
+  "precision": 0.2582,
+  "recall": 0.4777,
+  "f1_score": 0.3352,
+  "roc_auc": 0.5122,
+  "pr_auc": 0.2488,
+  "confusion_matrix": {
+    "true_negatives": 915,
+    "false_positives": 770,
+    "false_negatives": 293,
+    "true_positives": 268
+  },
+  "total_test_samples": 2246,
+  "timing": {
+    "pretraining_duration_seconds": 13.57,
+    "fine_tuning_duration_seconds": 22.38,
+    "total_training_duration_seconds": 35.95,
+    "single_sample_latency_ms": 3.347,
+    "batch_throughput_samples_per_sec": 24636.7
+  }
+}
