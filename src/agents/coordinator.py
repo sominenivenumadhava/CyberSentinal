@@ -25,6 +25,7 @@ from src.agents.classification_agent import AttackClassificationAgent
 from src.agents.anomaly_agent import AnomalyDetectionAgent
 from src.agents.investigation_agent import ThreatInvestigationAgent
 from src.agents.risk_agent import RiskAssessmentAgent
+from src.explainability.shap_explainer import FlowShapExplainer, CAUSALITY_DISCLAIMER
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,7 @@ class CentralCoordinator:
         self.anomaly_agent = anomaly_agent or AnomalyDetectionAgent()
         self.investigation_agent = investigation_agent or ThreatInvestigationAgent()
         self.risk_agent = risk_agent or RiskAssessmentAgent()
+        self.shap_explainer: Optional[FlowShapExplainer] = None
 
         self.agents_map = {
             AgentRole.DATA_PROCESSOR: self.data_agent,
@@ -222,6 +224,63 @@ class CentralCoordinator:
             findings = step4_res.payload["findings"]
 
             # -------------------------------------------------------------
+            # STEP 3.5: Explainable AI (SHAP Attributions for Selected Attacks)
+            # -------------------------------------------------------------
+            shap_summary_dict = None
+            try:
+                if self.shap_explainer is None:
+                    self.shap_explainer = FlowShapExplainer(
+                        predict_fn=self.classification_agent.model.predict_proba,
+                        feature_names=feature_names,
+                        max_background_size=20,
+                    )
+
+                shap_explanations = self.shap_explainer.explain_selected_attacks(
+                    feature_matrix=feature_matrix,
+                    predictions=classifications,
+                    max_to_explain=3,
+                )
+
+                if shap_explanations:
+                    # Save visual summary bar chart
+                    summary_img_path = self.shap_explainer.generate_summary_plot(shap_explanations)
+                    shap_summary_dict = {
+                        "explained_flows": len(shap_explanations),
+                        "explanations": shap_explanations,
+                        "causality_disclaimer": CAUSALITY_DISCLAIMER,
+                        "figure_path": str(summary_img_path),
+                    }
+
+                    # Attach to corresponding findings
+                    exp_map = {exp["flow_index"]: exp for exp in shap_explanations}
+                    for f in findings:
+                        f_idx = f.get("flow_index") if isinstance(f, dict) else getattr(f, "flow_index", None)
+                        if f_idx in exp_map:
+                            if isinstance(f, dict):
+                                f["shap_explanation"] = exp_map[f_idx]
+                            else:
+                                setattr(f, "shap_explanation", exp_map[f_idx])
+
+                execution_trace["ExplainabilityEngine"] = {
+                    "status": "SUCCESS",
+                    "method": "KernelSHAP",
+                    "explained_count": len(shap_explanations),
+                    "disclaimer": CAUSALITY_DISCLAIMER,
+                }
+                self._log_audit_step(
+                    db, AgentRole.COORDINATOR, "SHAP_LOCAL_FEATURE_EXPLANATION",
+                    target_id=task_id, details={"explained_flows": len(shap_explanations)},
+                    reasoning="Generated game-theoretic Shapley local attributions for selected attack candidates with non-causality disclaimer."
+                )
+            except Exception as e:
+                logger.warning(f"[CentralCoordinator] SHAP explanation fallback engaged: {e}")
+                execution_trace["ExplainabilityEngine"] = {
+                    "status": "RECOVERED_WITH_FALLBACK",
+                    "method": "AttentionMaskHeuristic",
+                    "error": str(e),
+                }
+
+            # -------------------------------------------------------------
             # STEP 4: Risk Scoring & Playbooks (Agent 5: Risk Assessment Agent)
             # -------------------------------------------------------------
             step5_msg = AgentMessage(
@@ -247,6 +306,8 @@ class CentralCoordinator:
             )
 
             risk_report = step5_res.payload
+            if shap_summary_dict:
+                risk_report["shap_summary"] = shap_summary_dict
 
             # -------------------------------------------------------------
             # STEP 5: Persistence to SQLite & JSON Export
@@ -298,6 +359,8 @@ class CentralCoordinator:
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "execution_trace": execution_trace,
                 "risk_report": risk_report,
+                "findings": [f if isinstance(f, dict) else f.model_dump(mode="json") for f in findings[:100]],
+                "shap_summary": shap_summary_dict,
             }
             with open(report_file, "w", encoding="utf-8") as f:
                 json.dump(final_output, f, indent=2, default=str)

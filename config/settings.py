@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     DATA_PROCESSED_DIR: Path = PROJECT_ROOT / "data" / "processed"
     DATA_SAMPLES_DIR: Path = PROJECT_ROOT / "data" / "samples"
     DATA_METADATA_DIR: Path = PROJECT_ROOT / "data" / "metadata"
+    DATA_UPLOADS_DIR: Path = PROJECT_ROOT / "data" / "uploads"
     REPORTS_DIR: Path = PROJECT_ROOT / "reports"
     FIGURES_DIR: Path = PROJECT_ROOT / "reports" / "figures"
     MODELS_DIR: Path = PROJECT_ROOT / "models"

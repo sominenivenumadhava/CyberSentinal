@@ -103,20 +103,54 @@ class ThreatInvestigationAgent(BaseAgent):
             # Detect pattern type
             if len(target_ports) >= 3:
                 pattern = "PORT_SCAN_RECONNAISSANCE"
-            elif any(p in (21, 22) for p in target_ports) and len(findings) >= 5:
+            elif any(p in (21, 22, 23, 3389) for p in target_ports) and len(findings) >= 2:
                 pattern = "BRUTE_FORCE_AUTHENTICATION_ATTEMPT"
-            elif len(findings) >= 20:
+            elif len(findings) >= 10:
                 pattern = "VOLUMETRIC_DOS_BURST"
             elif any(f.conflict == ConflictStatus.AMBIGUOUS_ANOMALY for f in findings):
                 pattern = "ZERO_DAY_ANOMALY_CLUSTER"
             else:
                 pattern = "SUSPICIOUS_NETWORK_ACTIVITY"
 
+            # Reconstruct chronological investigation timeline
+            timeline = []
+            for ev_idx, f in enumerate(findings):
+                t_stamp = f.metadata.timestamp or f"T+{ev_idx * 2}s"
+                stage_tag = (
+                    "INITIAL_PROBE" if ev_idx == 0
+                    else "SUSTAINED_BURST" if ev_idx >= 5
+                    else "TARGET_ENUMERATION"
+                )
+                timeline.append({
+                    "step": ev_idx + 1,
+                    "timestamp": t_stamp,
+                    "stage": stage_tag,
+                    "destination": f"{f.metadata.destination_ip}:{f.metadata.destination_port}",
+                    "protocol": f.metadata.protocol,
+                    "classification": "ATTACK" if f.classification.predicted_label == 1 else "BENIGN",
+                    "confidence": round(float(f.classification.confidence), 4),
+                    "reconstruction_error": round(float(f.anomaly.reconstruction_error), 6),
+                    "consensus_status": f.conflict.value,
+                })
+
+            # Uncertainty handling: measure model ambiguity ratio
+            ambiguous_count = sum(
+                1 for f in findings
+                if f.conflict in (ConflictStatus.AMBIGUOUS_ANOMALY, ConflictStatus.AMBIGUOUS_SIGNATURE)
+            )
+            uncertainty_score = round(ambiguous_count / len(findings), 4) if findings else 0.0
+            analyst_priority = (
+                "HIGH_MANUAL_REVIEW" if uncertainty_score >= 0.5
+                else "EXPEDITED_CONFIRMED_ATTACK" if any(f.conflict == ConflictStatus.CONCORDANT_ATTACK for f in findings)
+                else "STANDARD_TRIAGE"
+            )
+
             evidence_summary = (
                 f"Source {src_ip} generated {len(findings)} suspicious flow events targeting {len(target_ips)} host(s) "
                 f"on port(s) {target_ports[:5]}. Pattern identified: {pattern}. "
                 f"Classification detections: {sum(1 for f in findings if f.classification.predicted_label == 1)}. "
-                f"Reconstruction anomalies: {sum(1 for f in findings if f.anomaly.is_anomaly)}."
+                f"Reconstruction anomalies: {sum(1 for f in findings if f.anomaly.is_anomaly)}. "
+                f"Model consensus uncertainty: {round(uncertainty_score * 100, 1)}%."
             )
 
             inc = InvestigationIncident(
@@ -129,6 +163,9 @@ class ThreatInvestigationAgent(BaseAgent):
                 flow_count=len(findings),
                 findings=findings,
                 evidence_summary=evidence_summary,
+                timeline=timeline,
+                uncertainty_score=uncertainty_score,
+                analyst_review_priority=analyst_priority,
             )
             incidents.append(inc)
 

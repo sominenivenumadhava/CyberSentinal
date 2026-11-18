@@ -1,92 +1,187 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import DashboardOverview from './pages/DashboardOverview';
+import DatasetUpload from './pages/DatasetUpload';
+import AnalysisProgress from './pages/AnalysisProgress';
+import ThreatDetection from './pages/ThreatDetection';
+import InvestigationDetails from './pages/InvestigationDetails';
+import AgentMonitoring from './pages/AgentMonitoring';
+import ModelPerformance from './pages/ModelPerformance';
+import SecurityReports from './pages/SecurityReports';
 
 export default function App() {
-  const [systemStatus, setSystemStatus] = useState({ status: 'Connecting...', version: '0.1.0' });
+  const [activePage, setActivePage] = useState('dashboard');
+  const [backendStatus, setBackendStatus] = useState('connecting');
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [activeAnalysisId, setActiveAnalysisId] = useState(null);
+  const [analysisData, setAnalysisData] = useState(null);
+  const [agentsStatus, setAgentsStatus] = useState(null);
+  const [modelMetrics, setModelMetrics] = useState(null);
+  const [pastAnalyses, setPastAnalyses] = useState([]);
 
+  // Fetch initial telemetry and health
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/health')
-      .then(res => res.json())
-      .then(data => setSystemStatus(data))
-      .catch(() => setSystemStatus({ status: 'Offline / Standby', version: '0.1.0' }));
+    // 1. Health check
+    axios.get('/health')
+      .then(res => setBackendStatus(res.data.status))
+      .catch(() => setBackendStatus('offline'));
+
+    // 2. Agents status
+    axios.get('/api/agents/status')
+      .then(res => setAgentsStatus(res.data))
+      .catch(err => console.error("Error fetching agent status:", err));
+
+    // 3. Model metrics
+    axios.get('/api/models/metrics')
+      .then(res => setModelMetrics(res.data))
+      .catch(err => console.error("Error fetching model metrics:", err));
+
+    // 4. Past analyses
+    axios.get('/api/analyses')
+      .then(res => {
+        setPastAnalyses(res.data);
+        if (res.data && res.data.length > 0) {
+          const latest = res.data[0];
+          setActiveAnalysisId(latest.analysis_id);
+          // Fetch full result for latest
+          axios.get(`/api/results/${latest.analysis_id}`)
+            .then(rRes => setAnalysisData(rRes.data))
+            .catch(() => {});
+        }
+      })
+      .catch(() => {});
   }, []);
 
+  // Trigger Autonomous Multi-Agent Investigation
+  const handleTriggerAnalysis = async ({ file_id = 'dev_sample', sample_size = 50, raw_flows = null } = {}) => {
+    setIsAnalyzing(true);
+    setActivePage('progress');
+
+    try {
+      const response = await axios.post('/api/analyze', {
+        file_id,
+        sample_size,
+        raw_flows,
+      });
+
+      const newAnalysisId = response.data.analysis_id;
+      setActiveAnalysisId(newAnalysisId);
+
+      // Fetch comprehensive result
+      const resultsRes = await axios.get(`/api/results/${newAnalysisId}`);
+      setAnalysisData(resultsRes.data);
+
+      // Refresh past analyses list and agent stats
+      axios.get('/api/analyses').then(r => setPastAnalyses(r.data)).catch(() => {});
+      axios.get('/api/agents/status').then(r => setAgentsStatus(r.data)).catch(() => {});
+    } catch (err) {
+      console.error("Multi-Agent analysis error:", err);
+      alert("Investigation error: " + (err.response?.data?.detail || err.message));
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const getPageTitle = () => {
+    switch (activePage) {
+      case 'dashboard': return 'SOC Threat Intelligence Dashboard';
+      case 'upload': return 'Dataset Ingestion & Validation Gateway';
+      case 'progress': return 'Autonomous Swarm Execution Tracker';
+      case 'threats': return 'Telemetry Detection & Attribution Matrix';
+      case 'investigation': return 'Correlated Campaign Investigations';
+      case 'agents': return 'Multi-Agent Swarm Diagnostics & Audit';
+      case 'models': return 'Empirical Deep Learning Benchmarks';
+      case 'reports': return 'Executive Security Dossier & Mitigation';
+      default: return 'CyberSentinel SOC';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      {/* Top Navbar */}
-      <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="h-4 w-4 rounded-full bg-cyan-400 animate-pulse"></div>
-          <h1 className="text-xl font-bold tracking-wider text-cyan-400 uppercase">CyberSentinel</h1>
-          <span className="text-xs bg-slate-800 text-slate-400 px-2.5 py-0.5 rounded border border-slate-700">Autonomous Multi-Agent SOC</span>
-        </div>
-        <div className="flex items-center gap-4 text-sm">
-          <span className="text-slate-400">Backend API:</span>
-          <span className={`px-2 py-0.5 rounded text-xs font-semibold ${systemStatus.status === 'healthy' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-amber-950 text-amber-400 border border-amber-800'}`}>
-            {systemStatus.status.toUpperCase()}
-          </span>
-        </div>
-      </header>
+    <div className="flex min-h-screen bg-[#14213d] text-[#f4eded]">
+      {/* Sidebar Navigation */}
+      <Sidebar
+        activePage={activePage}
+        setActivePage={setActivePage}
+        backendStatus={backendStatus}
+        activeAnalysisId={activeAnalysisId}
+      />
 
-      {/* Main SOC Dashboard View */}
-      <main className="flex-1 p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-5">
-          <h2 className="text-base font-semibold text-slate-200 mb-2">Multi-Agent Swarm Status</h2>
-          <p className="text-xs text-slate-400 mb-4">Autonomous detection, triage, and forensic agents.</p>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center bg-slate-800/40 p-2.5 rounded border border-slate-800 text-sm">
-              <span>Triage Agent</span>
-              <span className="text-cyan-400 text-xs font-mono">STANDBY</span>
-            </div>
-            <div className="flex justify-between items-center bg-slate-800/40 p-2.5 rounded border border-slate-800 text-sm">
-              <span>Forensic Agent</span>
-              <span className="text-cyan-400 text-xs font-mono">STANDBY</span>
-            </div>
-            <div className="flex justify-between items-center bg-slate-800/40 p-2.5 rounded border border-slate-800 text-sm">
-              <span>Threat Intel Agent</span>
-              <span className="text-cyan-400 text-xs font-mono">STANDBY</span>
-            </div>
-          </div>
-        </div>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        <Header
+          activePageTitle={getPageTitle()}
+          onQuickAnalyze={() => handleTriggerAnalysis({ file_id: 'dev_sample', sample_size: 50 })}
+          isAnalyzing={isAnalyzing}
+          activeAnalysisId={activeAnalysisId}
+        />
 
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-5">
-          <h2 className="text-base font-semibold text-slate-200 mb-2">Detection Engine</h2>
-          <p className="text-xs text-slate-400 mb-4">Deep Tabular & Tree Classifiers</p>
-          <div className="space-y-2 text-sm text-slate-300">
-            <div className="flex justify-between">
-              <span className="text-slate-400">Architecture:</span>
-              <span className="font-mono text-xs">PyTorch TabNet + CPU</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-400">Explainability:</span>
-              <span className="font-mono text-xs">SHAP Game Theoretic</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-400">Topology Isolation:</span>
-              <span className="text-emerald-400 font-mono text-xs">ENFORCED (No IP/Port Bias)</span>
-            </div>
-          </div>
-        </div>
+        <main className="flex-1 p-6 overflow-y-auto bg-[#14213d]">
+          {activePage === 'dashboard' && (
+            <DashboardOverview
+              analysisData={analysisData}
+              agentsStatus={agentsStatus}
+              onNavigate={setActivePage}
+              onQuickAnalyze={() => handleTriggerAnalysis({ file_id: 'dev_sample', sample_size: 50 })}
+              isAnalyzing={isAnalyzing}
+            />
+          )}
 
-        <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-5">
-          <h2 className="text-base font-semibold text-slate-200 mb-2">Ingestion Telemetry</h2>
-          <p className="text-xs text-slate-400 mb-4">CICIDS2017 Dataset Lineage</p>
-          <div className="space-y-2 text-sm text-slate-300">
-            <div className="flex justify-between">
-              <span className="text-slate-400">Status:</span>
-              <span className="text-emerald-400 font-semibold text-xs">READY</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-400">Features Extracted:</span>
-              <span className="font-mono text-xs">65 Invariant Dimensions</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-slate-400">Storage Backend:</span>
-              <span className="font-mono text-xs">SQLite (cybersentinel.db)</span>
-            </div>
-          </div>
-        </div>
-      </main>
+          {activePage === 'upload' && (
+            <DatasetUpload
+              onAnalysisTriggered={handleTriggerAnalysis}
+              isAnalyzing={isAnalyzing}
+            />
+          )}
+
+          {activePage === 'progress' && (
+            <AnalysisProgress
+              activeAnalysisId={activeAnalysisId}
+              analysisData={analysisData}
+              isAnalyzing={isAnalyzing}
+              onNavigate={setActivePage}
+            />
+          )}
+
+          {activePage === 'threats' && (
+            <ThreatDetection
+              analysisData={analysisData}
+            />
+          )}
+
+          {activePage === 'investigation' && (
+            <InvestigationDetails
+              analysisData={analysisData}
+            />
+          )}
+
+          {activePage === 'agents' && (
+            <AgentMonitoring
+              agentsStatus={agentsStatus}
+              analysisData={analysisData}
+            />
+          )}
+
+          {activePage === 'models' && (
+            <ModelPerformance
+              modelMetrics={modelMetrics}
+            />
+          )}
+
+          {activePage === 'reports' && (
+            <SecurityReports
+              analysisData={analysisData}
+              activeAnalysisId={activeAnalysisId}
+              pastAnalyses={pastAnalyses}
+              onSelectAnalysis={(id) => {
+                setActiveAnalysisId(id);
+                axios.get(`/api/results/${id}`).then(r => setAnalysisData(r.data)).catch(() => {});
+              }}
+            />
+          )}
+        </main>
+      </div>
     </div>
   );
 }
-

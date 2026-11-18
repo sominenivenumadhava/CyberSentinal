@@ -1,2 +1,3 @@
-"""API Route Definitions."""
+from src.api.routes.threat_routes import router as threat_router
 
+__all__ = ["threat_router"]

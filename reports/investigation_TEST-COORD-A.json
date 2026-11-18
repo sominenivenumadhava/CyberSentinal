@@ -1,0 +1,2896 @@
+{
+  "task_id": "TEST-COORD-A",
+  "timestamp": "2026-11-15T13:23:04.745249+00:00",
+  "execution_trace": {
+    "DataProcessingAgent": {
+      "status": "SUCCESS",
+      "latency_ms": 57.885499991243705,
+      "error": null
+    },
+    "AttackClassificationAgent": {
+      "status": "SUCCESS",
+      "latency_ms": 13.072899979306385,
+      "error": null
+    },
+    "AnomalyDetectionAgent": {
+      "status": "SUCCESS",
+      "latency_ms": 2.187000005505979,
+      "error": null
+    },
+    "ThreatInvestigationAgent": {
+      "status": "SUCCESS",
+      "latency_ms": 1.072499988367781,
+      "error": null
+    },
+    "ExplainabilityEngine": {
+      "status": "SUCCESS",
+      "method": "KernelSHAP",
+      "explained_count": 2,
+      "disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent."
+    },
+    "RiskAssessmentAgent": {
+      "status": "CONFLICT_DETECTED",
+      "latency_ms": 1.0806999925989658,
+      "error": null
+    }
+  },
+  "risk_report": {
+    "assessment_id": "RISK-E75B3D5F",
+    "overall_risk_score": 79.17,
+    "severity": "CRITICAL",
+    "conflict_resolution": "Consensus Audit: Concordant Attacks=2, Ambiguous Anomalies (Possible Zero-Day)=18, Ambiguous Signatures=0.",
+    "total_flows_evaluated": 20,
+    "malicious_flows_count": 2,
+    "anomalous_flows_count": 20,
+    "correlated_incidents": [
+      {
+        "incident_id": "INC-9046356E",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.13",
+        "target_ips": [
+          "172.16.0.1"
+        ],
+        "target_ports": [
+          443
+        ],
+        "start_time": "07/07/2017 10:31",
+        "end_time": "07/07/2017 10:31",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 0,
+            "metadata": {
+              "flow_id": "192.168.10.13-172.16.0.1-34394-443-6",
+              "source_ip": "192.168.10.13",
+              "destination_ip": "172.16.0.1",
+              "source_port": 34394,
+              "destination_port": 443,
+              "timestamp": "07/07/2017 10:31",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 0,
+              "predicted_label": 0,
+              "confidence": 0.0912,
+              "probability_benign": 0.5456,
+              "probability_attack": 0.4544,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "bwd_packet_length_std",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 0,
+              "is_anomaly": true,
+              "reconstruction_error": 0.698573,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.774
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.13 generated 1 suspicious flow events targeting 1 host(s) on port(s) [443]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 10:31",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.1:443",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.0912,
+            "reconstruction_error": 0.698573,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-4AF9C3F1",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.19",
+        "target_ips": [
+          "172.16.0.1"
+        ],
+        "target_ports": [
+          8080
+        ],
+        "start_time": "07/07/2017 15:18",
+        "end_time": "07/07/2017 15:18",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 1,
+            "metadata": {
+              "flow_id": "192.168.10.19-172.16.0.1-21239-8080-6",
+              "source_ip": "192.168.10.19",
+              "destination_ip": "172.16.0.1",
+              "source_port": 21239,
+              "destination_port": 8080,
+              "timestamp": "07/07/2017 15:18",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 1,
+              "predicted_label": 0,
+              "confidence": 0.2538,
+              "probability_benign": 0.6269,
+              "probability_attack": 0.3731,
+              "top_attention_features": [
+                "total_fwd_packets",
+                "init_win_bytes_forward",
+                "flow_duration"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 1,
+              "is_anomaly": true,
+              "reconstruction_error": 0.727305,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.929
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.19 generated 1 suspicious flow events targeting 1 host(s) on port(s) [8080]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 15:18",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.1:8080",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.2538,
+            "reconstruction_error": 0.727305,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-71ED8D1B",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.17",
+        "target_ips": [
+          "172.16.0.6"
+        ],
+        "target_ports": [
+          443
+        ],
+        "start_time": "07/07/2017 13:48",
+        "end_time": "07/07/2017 13:48",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 2,
+            "metadata": {
+              "flow_id": "192.168.10.17-172.16.0.6-55636-443-6",
+              "source_ip": "192.168.10.17",
+              "destination_ip": "172.16.0.6",
+              "source_port": 55636,
+              "destination_port": 443,
+              "timestamp": "07/07/2017 13:48",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 2,
+              "predicted_label": 0,
+              "confidence": 0.2229,
+              "probability_benign": 0.6114,
+              "probability_attack": 0.3886,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "ack_flag_count",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 2,
+              "is_anomaly": true,
+              "reconstruction_error": 0.727535,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.93
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.17 generated 1 suspicious flow events targeting 1 host(s) on port(s) [443]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 13:48",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.6:443",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.2229,
+            "reconstruction_error": 0.727535,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-BDB4072F",
+        "pattern_type": "SUSPICIOUS_NETWORK_ACTIVITY",
+        "source_ip": "192.168.10.26",
+        "target_ips": [
+          "172.16.0.2"
+        ],
+        "target_ports": [
+          53
+        ],
+        "start_time": "07/07/2017 15:31",
+        "end_time": "07/07/2017 15:31",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 3,
+            "metadata": {
+              "flow_id": "192.168.10.26-172.16.0.2-49101-53-6",
+              "source_ip": "192.168.10.26",
+              "destination_ip": "172.16.0.2",
+              "source_port": 49101,
+              "destination_port": 53,
+              "timestamp": "07/07/2017 15:31",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 3,
+              "predicted_label": 1,
+              "confidence": 0.0068,
+              "probability_benign": 0.4966,
+              "probability_attack": 0.5034,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "bwd_packet_length_std",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 3,
+              "is_anomaly": true,
+              "reconstruction_error": 0.741137,
+              "threshold": 0.185111,
+              "deviation_ratio": 4.004
+            },
+            "conflict": "CONCORDANT_ATTACK",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.26 generated 1 suspicious flow events targeting 1 host(s) on port(s) [53]. Pattern identified: SUSPICIOUS_NETWORK_ACTIVITY. Classification detections: 1. Reconstruction anomalies: 1. Model consensus uncertainty: 0.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 15:31",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.2:53",
+            "protocol": "TCP",
+            "classification": "ATTACK",
+            "confidence": 0.0068,
+            "reconstruction_error": 0.741137,
+            "consensus_status": "CONCORDANT_ATTACK"
+          }
+        ],
+        "uncertainty_score": 0.0,
+        "analyst_review_priority": "EXPEDITED_CONFIRMED_ATTACK"
+      },
+      {
+        "incident_id": "INC-8F1103D7",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.20",
+        "target_ips": [
+          "172.16.0.3"
+        ],
+        "target_ports": [
+          445
+        ],
+        "start_time": "07/07/2017 14:32",
+        "end_time": "07/07/2017 14:32",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 4,
+            "metadata": {
+              "flow_id": "192.168.10.20-172.16.0.3-42288-445-6",
+              "source_ip": "192.168.10.20",
+              "destination_ip": "172.16.0.3",
+              "source_port": 42288,
+              "destination_port": 445,
+              "timestamp": "07/07/2017 14:32",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 4,
+              "predicted_label": 0,
+              "confidence": 0.2023,
+              "probability_benign": 0.6011,
+              "probability_attack": 0.3989,
+              "top_attention_features": [
+                "subflow_bwd_packets",
+                "init_win_bytes_forward",
+                "bwd_iat_min"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 4,
+              "is_anomaly": true,
+              "reconstruction_error": 0.690897,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.732
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.20 generated 1 suspicious flow events targeting 1 host(s) on port(s) [445]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 14:32",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.3:445",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.2023,
+            "reconstruction_error": 0.690897,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-E382715A",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.36",
+        "target_ips": [
+          "172.16.0.4"
+        ],
+        "target_ports": [
+          53
+        ],
+        "start_time": "07/07/2017 14:15",
+        "end_time": "07/07/2017 14:15",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 5,
+            "metadata": {
+              "flow_id": "192.168.10.36-172.16.0.4-57122-53-6",
+              "source_ip": "192.168.10.36",
+              "destination_ip": "172.16.0.4",
+              "source_port": 57122,
+              "destination_port": 53,
+              "timestamp": "07/07/2017 14:15",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 5,
+              "predicted_label": 0,
+              "confidence": 0.1762,
+              "probability_benign": 0.5881,
+              "probability_attack": 0.4119,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "min_packet_length",
+                "ack_flag_count"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 5,
+              "is_anomaly": true,
+              "reconstruction_error": 0.731487,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.952
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.36 generated 1 suspicious flow events targeting 1 host(s) on port(s) [53]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 14:15",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.4:53",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1762,
+            "reconstruction_error": 0.731487,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-201ECCF2",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.6",
+        "target_ips": [
+          "172.16.0.2"
+        ],
+        "target_ports": [
+          443
+        ],
+        "start_time": "07/07/2017 12:49",
+        "end_time": "07/07/2017 12:49",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 6,
+            "metadata": {
+              "flow_id": "192.168.10.6-172.16.0.2-4252-443-6",
+              "source_ip": "192.168.10.6",
+              "destination_ip": "172.16.0.2",
+              "source_port": 4252,
+              "destination_port": 443,
+              "timestamp": "07/07/2017 12:49",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 6,
+              "predicted_label": 0,
+              "confidence": 0.0334,
+              "probability_benign": 0.5167,
+              "probability_attack": 0.4833,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "bwd_packet_length_std",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 6,
+              "is_anomaly": true,
+              "reconstruction_error": 0.727681,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.931
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.6 generated 1 suspicious flow events targeting 1 host(s) on port(s) [443]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 12:49",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.2:443",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.0334,
+            "reconstruction_error": 0.727681,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-D9EC6769",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.30",
+        "target_ips": [
+          "172.16.0.7"
+        ],
+        "target_ports": [
+          8080
+        ],
+        "start_time": "07/07/2017 8:29",
+        "end_time": "07/07/2017 8:29",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 7,
+            "metadata": {
+              "flow_id": "192.168.10.30-172.16.0.7-28759-8080-6",
+              "source_ip": "192.168.10.30",
+              "destination_ip": "172.16.0.7",
+              "source_port": 28759,
+              "destination_port": 8080,
+              "timestamp": "07/07/2017 8:29",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 7,
+              "predicted_label": 0,
+              "confidence": 0.1562,
+              "probability_benign": 0.5781,
+              "probability_attack": 0.4219,
+              "top_attention_features": [
+                "total_fwd_packets",
+                "init_win_bytes_forward",
+                "flow_duration"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 7,
+              "is_anomaly": true,
+              "reconstruction_error": 0.726865,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.927
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.30 generated 1 suspicious flow events targeting 1 host(s) on port(s) [8080]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 8:29",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.7:8080",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1562,
+            "reconstruction_error": 0.726865,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-50792BFD",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.18",
+        "target_ips": [
+          "172.16.0.1"
+        ],
+        "target_ports": [
+          443
+        ],
+        "start_time": "07/07/2017 9:53",
+        "end_time": "07/07/2017 9:53",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 8,
+            "metadata": {
+              "flow_id": "192.168.10.18-172.16.0.1-10467-443-6",
+              "source_ip": "192.168.10.18",
+              "destination_ip": "172.16.0.1",
+              "source_port": 10467,
+              "destination_port": 443,
+              "timestamp": "07/07/2017 9:53",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 8,
+              "predicted_label": 0,
+              "confidence": 0.0955,
+              "probability_benign": 0.5477,
+              "probability_attack": 0.4523,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "bwd_packet_length_std",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 8,
+              "is_anomaly": true,
+              "reconstruction_error": 0.72705,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.928
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.18 generated 1 suspicious flow events targeting 1 host(s) on port(s) [443]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 9:53",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.1:443",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.0955,
+            "reconstruction_error": 0.72705,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-8C8E12C7",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.42",
+        "target_ips": [
+          "172.16.0.3"
+        ],
+        "target_ports": [
+          445
+        ],
+        "start_time": "07/07/2017 9:37",
+        "end_time": "07/07/2017 9:37",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 9,
+            "metadata": {
+              "flow_id": "192.168.10.42-172.16.0.3-59304-445-6",
+              "source_ip": "192.168.10.42",
+              "destination_ip": "172.16.0.3",
+              "source_port": 59304,
+              "destination_port": 445,
+              "timestamp": "07/07/2017 9:37",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 9,
+              "predicted_label": 0,
+              "confidence": 0.1944,
+              "probability_benign": 0.5972,
+              "probability_attack": 0.4028,
+              "top_attention_features": [
+                "subflow_bwd_packets",
+                "init_win_bytes_forward",
+                "bwd_iat_min"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 9,
+              "is_anomaly": true,
+              "reconstruction_error": 0.713787,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.856
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.42 generated 1 suspicious flow events targeting 1 host(s) on port(s) [445]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 9:37",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.3:445",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1944,
+            "reconstruction_error": 0.713787,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-547A3ABA",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.38",
+        "target_ips": [
+          "172.16.0.2"
+        ],
+        "target_ports": [
+          8080
+        ],
+        "start_time": "07/07/2017 15:07",
+        "end_time": "07/07/2017 15:07",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 10,
+            "metadata": {
+              "flow_id": "192.168.10.38-172.16.0.2-40300-8080-6",
+              "source_ip": "192.168.10.38",
+              "destination_ip": "172.16.0.2",
+              "source_port": 40300,
+              "destination_port": 8080,
+              "timestamp": "07/07/2017 15:07",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 10,
+              "predicted_label": 0,
+              "confidence": 0.1995,
+              "probability_benign": 0.5997,
+              "probability_attack": 0.4003,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "min_packet_length",
+                "ack_flag_count"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 10,
+              "is_anomaly": true,
+              "reconstruction_error": 0.721696,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.899
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.38 generated 1 suspicious flow events targeting 1 host(s) on port(s) [8080]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 15:07",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.2:8080",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1995,
+            "reconstruction_error": 0.721696,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-4B5584FF",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.12",
+        "target_ips": [
+          "172.16.0.9"
+        ],
+        "target_ports": [
+          53
+        ],
+        "start_time": "07/07/2017 13:52",
+        "end_time": "07/07/2017 13:52",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 11,
+            "metadata": {
+              "flow_id": "192.168.10.12-172.16.0.9-32735-53-6",
+              "source_ip": "192.168.10.12",
+              "destination_ip": "172.16.0.9",
+              "source_port": 32735,
+              "destination_port": 53,
+              "timestamp": "07/07/2017 13:52",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 11,
+              "predicted_label": 0,
+              "confidence": 0.2214,
+              "probability_benign": 0.6107,
+              "probability_attack": 0.3893,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "ack_flag_count",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 11,
+              "is_anomaly": true,
+              "reconstruction_error": 0.726711,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.926
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.12 generated 1 suspicious flow events targeting 1 host(s) on port(s) [53]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 13:52",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.9:53",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.2214,
+            "reconstruction_error": 0.726711,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-01FD2B91",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.40",
+        "target_ips": [
+          "172.16.0.8"
+        ],
+        "target_ports": [
+          53
+        ],
+        "start_time": "07/07/2017 11:45",
+        "end_time": "07/07/2017 11:45",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 12,
+            "metadata": {
+              "flow_id": "192.168.10.40-172.16.0.8-45701-53-6",
+              "source_ip": "192.168.10.40",
+              "destination_ip": "172.16.0.8",
+              "source_port": 45701,
+              "destination_port": 53,
+              "timestamp": "07/07/2017 11:45",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 12,
+              "predicted_label": 0,
+              "confidence": 0.2059,
+              "probability_benign": 0.603,
+              "probability_attack": 0.397,
+              "top_attention_features": [
+                "subflow_bwd_packets",
+                "init_win_bytes_forward",
+                "bwd_iat_min"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 12,
+              "is_anomaly": true,
+              "reconstruction_error": 0.690444,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.73
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.40 generated 1 suspicious flow events targeting 1 host(s) on port(s) [53]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 11:45",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.8:53",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.2059,
+            "reconstruction_error": 0.690444,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-BD671959",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.25",
+        "target_ips": [
+          "172.16.0.3"
+        ],
+        "target_ports": [
+          53
+        ],
+        "start_time": "07/07/2017 13:28",
+        "end_time": "07/07/2017 13:28",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 13,
+            "metadata": {
+              "flow_id": "192.168.10.25-172.16.0.3-52489-53-6",
+              "source_ip": "192.168.10.25",
+              "destination_ip": "172.16.0.3",
+              "source_port": 52489,
+              "destination_port": 53,
+              "timestamp": "07/07/2017 13:28",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 13,
+              "predicted_label": 0,
+              "confidence": 0.0515,
+              "probability_benign": 0.5258,
+              "probability_attack": 0.4742,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "min_packet_length",
+                "bwd_packet_length_std"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 13,
+              "is_anomaly": true,
+              "reconstruction_error": 0.736198,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.977
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.25 generated 1 suspicious flow events targeting 1 host(s) on port(s) [53]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 13:28",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.3:53",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.0515,
+            "reconstruction_error": 0.736198,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-11BAE803",
+        "pattern_type": "BRUTE_FORCE_AUTHENTICATION_ATTEMPT",
+        "source_ip": "192.168.10.50",
+        "target_ips": [
+          "172.16.0.5"
+        ],
+        "target_ports": [
+          22,
+          80
+        ],
+        "start_time": "07/07/2017 12:25",
+        "end_time": "07/07/2017 15:25",
+        "flow_count": 2,
+        "findings": [
+          {
+            "flow_index": 14,
+            "metadata": {
+              "flow_id": "192.168.10.50-172.16.0.5-60499-80-6",
+              "source_ip": "192.168.10.50",
+              "destination_ip": "172.16.0.5",
+              "source_port": 60499,
+              "destination_port": 80,
+              "timestamp": "07/07/2017 12:25",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 14,
+              "predicted_label": 0,
+              "confidence": 0.1635,
+              "probability_benign": 0.5818,
+              "probability_attack": 0.4182,
+              "top_attention_features": [
+                "total_fwd_packets",
+                "init_win_bytes_forward",
+                "flow_duration"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 14,
+              "is_anomaly": true,
+              "reconstruction_error": 0.722982,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.906
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          },
+          {
+            "flow_index": 17,
+            "metadata": {
+              "flow_id": "192.168.10.50-172.16.0.5-40788-22-6",
+              "source_ip": "192.168.10.50",
+              "destination_ip": "172.16.0.5",
+              "source_port": 40788,
+              "destination_port": 22,
+              "timestamp": "07/07/2017 15:25",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 17,
+              "predicted_label": 0,
+              "confidence": 0.1356,
+              "probability_benign": 0.5678,
+              "probability_attack": 0.4322,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "total_fwd_packets",
+                "flow_duration"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 17,
+              "is_anomaly": true,
+              "reconstruction_error": 0.72898,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.938
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.50 generated 2 suspicious flow events targeting 1 host(s) on port(s) [22, 80]. Pattern identified: BRUTE_FORCE_AUTHENTICATION_ATTEMPT. Classification detections: 0. Reconstruction anomalies: 2. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 12:25",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.5:80",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1635,
+            "reconstruction_error": 0.722982,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          },
+          {
+            "step": 2,
+            "timestamp": "07/07/2017 15:25",
+            "stage": "TARGET_ENUMERATION",
+            "destination": "172.16.0.5:22",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1356,
+            "reconstruction_error": 0.72898,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-E8119403",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.47",
+        "target_ips": [
+          "172.16.0.3"
+        ],
+        "target_ports": [
+          8080
+        ],
+        "start_time": "07/07/2017 11:21",
+        "end_time": "07/07/2017 11:21",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 15,
+            "metadata": {
+              "flow_id": "192.168.10.47-172.16.0.3-12499-8080-6",
+              "source_ip": "192.168.10.47",
+              "destination_ip": "172.16.0.3",
+              "source_port": 12499,
+              "destination_port": 8080,
+              "timestamp": "07/07/2017 11:21",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 15,
+              "predicted_label": 0,
+              "confidence": 0.2198,
+              "probability_benign": 0.6099,
+              "probability_attack": 0.3901,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "ack_flag_count",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 15,
+              "is_anomaly": true,
+              "reconstruction_error": 0.720732,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.894
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.47 generated 1 suspicious flow events targeting 1 host(s) on port(s) [8080]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 11:21",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.3:8080",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.2198,
+            "reconstruction_error": 0.720732,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-894758B6",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.32",
+        "target_ips": [
+          "172.16.0.6"
+        ],
+        "target_ports": [
+          53
+        ],
+        "start_time": "07/07/2017 16:56",
+        "end_time": "07/07/2017 16:56",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 16,
+            "metadata": {
+              "flow_id": "192.168.10.32-172.16.0.6-37081-53-6",
+              "source_ip": "192.168.10.32",
+              "destination_ip": "172.16.0.6",
+              "source_port": 37081,
+              "destination_port": 53,
+              "timestamp": "07/07/2017 16:56",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 16,
+              "predicted_label": 0,
+              "confidence": 0.1971,
+              "probability_benign": 0.5985,
+              "probability_attack": 0.4015,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "bwd_iat_min",
+                "ack_flag_count"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 16,
+              "is_anomaly": true,
+              "reconstruction_error": 0.698525,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.774
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.32 generated 1 suspicious flow events targeting 1 host(s) on port(s) [53]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 16:56",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.6:53",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1971,
+            "reconstruction_error": 0.698525,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-DEC84D89",
+        "pattern_type": "ZERO_DAY_ANOMALY_CLUSTER",
+        "source_ip": "192.168.10.48",
+        "target_ips": [
+          "172.16.0.2"
+        ],
+        "target_ports": [
+          445
+        ],
+        "start_time": "07/07/2017 8:24",
+        "end_time": "07/07/2017 8:24",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 18,
+            "metadata": {
+              "flow_id": "192.168.10.48-172.16.0.2-5868-445-6",
+              "source_ip": "192.168.10.48",
+              "destination_ip": "172.16.0.2",
+              "source_port": 5868,
+              "destination_port": 445,
+              "timestamp": "07/07/2017 8:24",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 18,
+              "predicted_label": 0,
+              "confidence": 0.1786,
+              "probability_benign": 0.5893,
+              "probability_attack": 0.4107,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "min_packet_length",
+                "ack_flag_count"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 18,
+              "is_anomaly": true,
+              "reconstruction_error": 0.735382,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.973
+            },
+            "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.48 generated 1 suspicious flow events targeting 1 host(s) on port(s) [445]. Pattern identified: ZERO_DAY_ANOMALY_CLUSTER. Classification detections: 0. Reconstruction anomalies: 1. Model consensus uncertainty: 100.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 8:24",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.2:445",
+            "protocol": "TCP",
+            "classification": "BENIGN",
+            "confidence": 0.1786,
+            "reconstruction_error": 0.735382,
+            "consensus_status": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW"
+          }
+        ],
+        "uncertainty_score": 1.0,
+        "analyst_review_priority": "HIGH_MANUAL_REVIEW"
+      },
+      {
+        "incident_id": "INC-CEA34200",
+        "pattern_type": "SUSPICIOUS_NETWORK_ACTIVITY",
+        "source_ip": "192.168.10.52",
+        "target_ips": [
+          "172.16.0.8"
+        ],
+        "target_ports": [
+          22
+        ],
+        "start_time": "07/07/2017 12:26",
+        "end_time": "07/07/2017 12:26",
+        "flow_count": 1,
+        "findings": [
+          {
+            "flow_index": 19,
+            "metadata": {
+              "flow_id": "192.168.10.52-172.16.0.8-52374-22-6",
+              "source_ip": "192.168.10.52",
+              "destination_ip": "172.16.0.8",
+              "source_port": 52374,
+              "destination_port": 22,
+              "timestamp": "07/07/2017 12:26",
+              "protocol": "TCP"
+            },
+            "classification": {
+              "flow_index": 19,
+              "predicted_label": 1,
+              "confidence": 0.0021,
+              "probability_benign": 0.499,
+              "probability_attack": 0.501,
+              "top_attention_features": [
+                "init_win_bytes_forward",
+                "bwd_packet_length_std",
+                "min_packet_length"
+              ]
+            },
+            "anomaly": {
+              "flow_index": 19,
+              "is_anomaly": true,
+              "reconstruction_error": 0.739789,
+              "threshold": 0.185111,
+              "deviation_ratio": 3.996
+            },
+            "conflict": "CONCORDANT_ATTACK",
+            "shap_explanation": null
+          }
+        ],
+        "evidence_summary": "Source 192.168.10.52 generated 1 suspicious flow events targeting 1 host(s) on port(s) [22]. Pattern identified: SUSPICIOUS_NETWORK_ACTIVITY. Classification detections: 1. Reconstruction anomalies: 1. Model consensus uncertainty: 0.0%.",
+        "timeline": [
+          {
+            "step": 1,
+            "timestamp": "07/07/2017 12:26",
+            "stage": "INITIAL_PROBE",
+            "destination": "172.16.0.8:22",
+            "protocol": "TCP",
+            "classification": "ATTACK",
+            "confidence": 0.0021,
+            "reconstruction_error": 0.739789,
+            "consensus_status": "CONCORDANT_ATTACK"
+          }
+        ],
+        "uncertainty_score": 0.0,
+        "analyst_review_priority": "EXPEDITED_CONFIRMED_ATTACK"
+      }
+    ],
+    "recommended_actions": [
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.13",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.13 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.13",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.13",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.13.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.19",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.19 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.19",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.19",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.19.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.17",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.17 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.17",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.17",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.17.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "CRITICAL",
+        "target": "192.168.10.26",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.26 due to CRITICAL SUSPICIOUS_NETWORK_ACTIVITY.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.26",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.26.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.20",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.20 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.20",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.20",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.20.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.36",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.36 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.36",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.36",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.36.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.6",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.6 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.6",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.6",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.6.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.30",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.30 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.30",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.30",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.30.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.18",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.18 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.18",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.18",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.18.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.42",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.42 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.42",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.42",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.42.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.38",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.38 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.38",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.38",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.38.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.12",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.12 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.12",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.12",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.12.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.40",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.40 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.40",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.40",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.40.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.25",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.25 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.25",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.25",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.25.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.50",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.50 due to HIGH BRUTE_FORCE_AUTHENTICATION_ATTEMPT.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.50",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "AUTHENTICATION_DEFENSE_PROPOSAL",
+        "priority": "HIGH",
+        "target": "192.168.10.50",
+        "description": "Propose enforcing exponential backoff and MFA challenge on targeted endpoints ['172.16.0.5'].",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.47",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.47 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.47",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.47",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.47.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.32",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.32 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.32",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.32",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.32.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "HIGH",
+        "target": "192.168.10.48",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.48 due to HIGH ZERO_DAY_ANOMALY_CLUSTER.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "MANUAL_PAYLOAD_INSPECTION",
+        "priority": "MEDIUM",
+        "target": "192.168.10.48",
+        "description": "Model conflict detected (TabNet vs Autoencoder). Review full PCAP payload for potential zero-day or benign false positive.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.48",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.48.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "SOC_ANALYST_ESCALATION",
+        "priority": "CRITICAL",
+        "target": "192.168.10.52",
+        "description": "Immediate escalation to Tier-2 SOC Analyst for source 192.168.10.52 due to CRITICAL SUSPICIOUS_NETWORK_ACTIVITY.",
+        "requires_approval": true
+      },
+      {
+        "action_type": "HOST_MONITORING_PROPOSAL",
+        "priority": "LOW",
+        "target": "192.168.10.52",
+        "description": "Enable enhanced NetFlow logging on telemetry tap for 192.168.10.52.",
+        "requires_approval": true
+      }
+    ],
+    "executive_summary": "CyberSentinel Multi-Agent Threat Assessment: Evaluated 20 network flow telemetry records. Identified 20 suspicious flow events organized into 19 distinct campaign incident(s). Overall System Threat Posture: CRITICAL (Risk Score: 79.17/100). Consensus Audit: Concordant Attacks=2, Ambiguous Anomalies (Possible Zero-Day)=18, Ambiguous Signatures=0. Generated 55 proposed containment and verification playbooks awaiting analyst sign-off.",
+    "shap_summary": {
+      "explained_flows": 2,
+      "explanations": [
+        {
+          "flow_index": 3,
+          "base_value": 0.5166,
+          "top_features": [
+            {
+              "feature_name": "total_backward_packets",
+              "feature_value": -1.5,
+              "shap_value": 0.027206,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "bwd_iat_min",
+              "feature_value": -0.9837,
+              "shap_value": -0.026098,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "flow_duration",
+              "feature_value": -0.6326,
+              "shap_value": -0.025754,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "min_packet_length",
+              "feature_value": -0.9887,
+              "shap_value": 0.02559,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "ack_flag_count",
+              "feature_value": -1.0,
+              "shap_value": -0.023751,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "fwd_packet_length_mean",
+              "feature_value": -1.0135,
+              "shap_value": 0.014193,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            }
+          ],
+          "positive_contributors": [
+            {
+              "feature_name": "total_backward_packets",
+              "feature_value": -1.5,
+              "shap_value": 0.027206,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "min_packet_length",
+              "feature_value": -0.9887,
+              "shap_value": 0.02559,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "fwd_packet_length_mean",
+              "feature_value": -1.0135,
+              "shap_value": 0.014193,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            }
+          ],
+          "negative_contributors": [
+            {
+              "feature_name": "bwd_iat_min",
+              "feature_value": -0.9837,
+              "shap_value": -0.026098,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "flow_duration",
+              "feature_value": -0.6326,
+              "shap_value": -0.025754,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "ack_flag_count",
+              "feature_value": -1.0,
+              "shap_value": -0.023751,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            }
+          ],
+          "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+          "method": "KernelSHAP"
+        },
+        {
+          "flow_index": 19,
+          "base_value": 0.5166,
+          "top_features": [
+            {
+              "feature_name": "fwd_packet_length_mean",
+              "feature_value": -1.0135,
+              "shap_value": 0.030311,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "bwd_iat_min",
+              "feature_value": -1.0149,
+              "shap_value": -0.026298,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "total_length_of_fwd_packets",
+              "feature_value": -0.6382,
+              "shap_value": -0.025601,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "ack_flag_count",
+              "feature_value": -1.0,
+              "shap_value": -0.023324,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "min_packet_length",
+              "feature_value": -0.9906,
+              "shap_value": 0.014553,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "bwd_packet_length_min",
+              "feature_value": -1.0128,
+              "shap_value": 0.010082,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            }
+          ],
+          "positive_contributors": [
+            {
+              "feature_name": "fwd_packet_length_mean",
+              "feature_value": -1.0135,
+              "shap_value": 0.030311,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "min_packet_length",
+              "feature_value": -0.9906,
+              "shap_value": 0.014553,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "bwd_packet_length_min",
+              "feature_value": -1.0128,
+              "shap_value": 0.010082,
+              "directional_impact": "INCREASES_ATTACK_RISK"
+            }
+          ],
+          "negative_contributors": [
+            {
+              "feature_name": "bwd_iat_min",
+              "feature_value": -1.0149,
+              "shap_value": -0.026298,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "total_length_of_fwd_packets",
+              "feature_value": -0.6382,
+              "shap_value": -0.025601,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            },
+            {
+              "feature_name": "ack_flag_count",
+              "feature_value": -1.0,
+              "shap_value": -0.023324,
+              "directional_impact": "DECREASES_ATTACK_RISK"
+            }
+          ],
+          "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+          "method": "KernelSHAP"
+        }
+      ],
+      "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+      "figure_path": "C:\\Users\\venum\\.gemini\\antigravity-ide\\scratch\\CyberSentinel\\reports\\figures\\shap_feature_importance.png"
+    },
+    "scoring_method_documentation": "CyberSentinel Multi-Criteria Risk Scoring Formulation:\nRisk Score = 100 * [ w_cls * P(Attack) + w_anom * min(1.0, MSE / (2 * tau*)) + w_cons * C + w_asset * S_port ]\n\nActive Parameters:\n  - Supervised Weight (w_cls)      : 0.40 (Discriminative TabNet probability)\n  - Unsupervised Weight (w_anom)   : 0.35 (Reconstruction error deviation ratio)\n  - Consensus Weight (w_cons)      : 0.15 (Model agreement coefficient)\n  - Asset Sensitivity (w_asset)    : 0.10 (Critical port multiplier)\n\nSeverity Tier Thresholds:\n  - CRITICAL : Score >= 75.0\n  - HIGH     : 50.0 <= Score < 75.0\n  - MEDIUM   : 25.0 <= Score < 50.0\n  - LOW      : Score < 25.0\n",
+    "created_at": "2026-11-15T13:23:04.738871Z"
+  },
+  "findings": [
+    {
+      "flow_index": 0,
+      "metadata": {
+        "flow_id": "192.168.10.13-172.16.0.1-34394-443-6",
+        "source_ip": "192.168.10.13",
+        "destination_ip": "172.16.0.1",
+        "source_port": 34394,
+        "destination_port": 443,
+        "timestamp": "07/07/2017 10:31",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 0,
+        "predicted_label": 0,
+        "confidence": 0.0912,
+        "probability_benign": 0.5456,
+        "probability_attack": 0.4544,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "bwd_packet_length_std",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 0,
+        "is_anomaly": true,
+        "reconstruction_error": 0.698573,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.774
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 1,
+      "metadata": {
+        "flow_id": "192.168.10.19-172.16.0.1-21239-8080-6",
+        "source_ip": "192.168.10.19",
+        "destination_ip": "172.16.0.1",
+        "source_port": 21239,
+        "destination_port": 8080,
+        "timestamp": "07/07/2017 15:18",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 1,
+        "predicted_label": 0,
+        "confidence": 0.2538,
+        "probability_benign": 0.6269,
+        "probability_attack": 0.3731,
+        "top_attention_features": [
+          "total_fwd_packets",
+          "init_win_bytes_forward",
+          "flow_duration"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 1,
+        "is_anomaly": true,
+        "reconstruction_error": 0.727305,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.929
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 2,
+      "metadata": {
+        "flow_id": "192.168.10.17-172.16.0.6-55636-443-6",
+        "source_ip": "192.168.10.17",
+        "destination_ip": "172.16.0.6",
+        "source_port": 55636,
+        "destination_port": 443,
+        "timestamp": "07/07/2017 13:48",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 2,
+        "predicted_label": 0,
+        "confidence": 0.2229,
+        "probability_benign": 0.6114,
+        "probability_attack": 0.3886,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "ack_flag_count",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 2,
+        "is_anomaly": true,
+        "reconstruction_error": 0.727535,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.93
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 3,
+      "metadata": {
+        "flow_id": "192.168.10.26-172.16.0.2-49101-53-6",
+        "source_ip": "192.168.10.26",
+        "destination_ip": "172.16.0.2",
+        "source_port": 49101,
+        "destination_port": 53,
+        "timestamp": "07/07/2017 15:31",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 3,
+        "predicted_label": 1,
+        "confidence": 0.0068,
+        "probability_benign": 0.4966,
+        "probability_attack": 0.5034,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "bwd_packet_length_std",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 3,
+        "is_anomaly": true,
+        "reconstruction_error": 0.741137,
+        "threshold": 0.185111,
+        "deviation_ratio": 4.004
+      },
+      "conflict": "CONCORDANT_ATTACK",
+      "shap_explanation": {
+        "flow_index": 3,
+        "base_value": 0.5166,
+        "top_features": [
+          {
+            "feature_name": "total_backward_packets",
+            "feature_value": -1.5,
+            "shap_value": 0.027206,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -0.9837,
+            "shap_value": -0.026098,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "flow_duration",
+            "feature_value": -0.6326,
+            "shap_value": -0.025754,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9887,
+            "shap_value": 0.02559,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023751,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.014193,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "positive_contributors": [
+          {
+            "feature_name": "total_backward_packets",
+            "feature_value": -1.5,
+            "shap_value": 0.027206,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9887,
+            "shap_value": 0.02559,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.014193,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "negative_contributors": [
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -0.9837,
+            "shap_value": -0.026098,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "flow_duration",
+            "feature_value": -0.6326,
+            "shap_value": -0.025754,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023751,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          }
+        ],
+        "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+        "method": "KernelSHAP"
+      }
+    },
+    {
+      "flow_index": 4,
+      "metadata": {
+        "flow_id": "192.168.10.20-172.16.0.3-42288-445-6",
+        "source_ip": "192.168.10.20",
+        "destination_ip": "172.16.0.3",
+        "source_port": 42288,
+        "destination_port": 445,
+        "timestamp": "07/07/2017 14:32",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 4,
+        "predicted_label": 0,
+        "confidence": 0.2023,
+        "probability_benign": 0.6011,
+        "probability_attack": 0.3989,
+        "top_attention_features": [
+          "subflow_bwd_packets",
+          "init_win_bytes_forward",
+          "bwd_iat_min"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 4,
+        "is_anomaly": true,
+        "reconstruction_error": 0.690897,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.732
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 5,
+      "metadata": {
+        "flow_id": "192.168.10.36-172.16.0.4-57122-53-6",
+        "source_ip": "192.168.10.36",
+        "destination_ip": "172.16.0.4",
+        "source_port": 57122,
+        "destination_port": 53,
+        "timestamp": "07/07/2017 14:15",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 5,
+        "predicted_label": 0,
+        "confidence": 0.1762,
+        "probability_benign": 0.5881,
+        "probability_attack": 0.4119,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "min_packet_length",
+          "ack_flag_count"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 5,
+        "is_anomaly": true,
+        "reconstruction_error": 0.731487,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.952
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 6,
+      "metadata": {
+        "flow_id": "192.168.10.6-172.16.0.2-4252-443-6",
+        "source_ip": "192.168.10.6",
+        "destination_ip": "172.16.0.2",
+        "source_port": 4252,
+        "destination_port": 443,
+        "timestamp": "07/07/2017 12:49",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 6,
+        "predicted_label": 0,
+        "confidence": 0.0334,
+        "probability_benign": 0.5167,
+        "probability_attack": 0.4833,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "bwd_packet_length_std",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 6,
+        "is_anomaly": true,
+        "reconstruction_error": 0.727681,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.931
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 7,
+      "metadata": {
+        "flow_id": "192.168.10.30-172.16.0.7-28759-8080-6",
+        "source_ip": "192.168.10.30",
+        "destination_ip": "172.16.0.7",
+        "source_port": 28759,
+        "destination_port": 8080,
+        "timestamp": "07/07/2017 8:29",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 7,
+        "predicted_label": 0,
+        "confidence": 0.1562,
+        "probability_benign": 0.5781,
+        "probability_attack": 0.4219,
+        "top_attention_features": [
+          "total_fwd_packets",
+          "init_win_bytes_forward",
+          "flow_duration"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 7,
+        "is_anomaly": true,
+        "reconstruction_error": 0.726865,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.927
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 8,
+      "metadata": {
+        "flow_id": "192.168.10.18-172.16.0.1-10467-443-6",
+        "source_ip": "192.168.10.18",
+        "destination_ip": "172.16.0.1",
+        "source_port": 10467,
+        "destination_port": 443,
+        "timestamp": "07/07/2017 9:53",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 8,
+        "predicted_label": 0,
+        "confidence": 0.0955,
+        "probability_benign": 0.5477,
+        "probability_attack": 0.4523,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "bwd_packet_length_std",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 8,
+        "is_anomaly": true,
+        "reconstruction_error": 0.72705,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.928
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 9,
+      "metadata": {
+        "flow_id": "192.168.10.42-172.16.0.3-59304-445-6",
+        "source_ip": "192.168.10.42",
+        "destination_ip": "172.16.0.3",
+        "source_port": 59304,
+        "destination_port": 445,
+        "timestamp": "07/07/2017 9:37",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 9,
+        "predicted_label": 0,
+        "confidence": 0.1944,
+        "probability_benign": 0.5972,
+        "probability_attack": 0.4028,
+        "top_attention_features": [
+          "subflow_bwd_packets",
+          "init_win_bytes_forward",
+          "bwd_iat_min"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 9,
+        "is_anomaly": true,
+        "reconstruction_error": 0.713787,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.856
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 10,
+      "metadata": {
+        "flow_id": "192.168.10.38-172.16.0.2-40300-8080-6",
+        "source_ip": "192.168.10.38",
+        "destination_ip": "172.16.0.2",
+        "source_port": 40300,
+        "destination_port": 8080,
+        "timestamp": "07/07/2017 15:07",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 10,
+        "predicted_label": 0,
+        "confidence": 0.1995,
+        "probability_benign": 0.5997,
+        "probability_attack": 0.4003,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "min_packet_length",
+          "ack_flag_count"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 10,
+        "is_anomaly": true,
+        "reconstruction_error": 0.721696,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.899
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 11,
+      "metadata": {
+        "flow_id": "192.168.10.12-172.16.0.9-32735-53-6",
+        "source_ip": "192.168.10.12",
+        "destination_ip": "172.16.0.9",
+        "source_port": 32735,
+        "destination_port": 53,
+        "timestamp": "07/07/2017 13:52",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 11,
+        "predicted_label": 0,
+        "confidence": 0.2214,
+        "probability_benign": 0.6107,
+        "probability_attack": 0.3893,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "ack_flag_count",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 11,
+        "is_anomaly": true,
+        "reconstruction_error": 0.726711,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.926
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 12,
+      "metadata": {
+        "flow_id": "192.168.10.40-172.16.0.8-45701-53-6",
+        "source_ip": "192.168.10.40",
+        "destination_ip": "172.16.0.8",
+        "source_port": 45701,
+        "destination_port": 53,
+        "timestamp": "07/07/2017 11:45",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 12,
+        "predicted_label": 0,
+        "confidence": 0.2059,
+        "probability_benign": 0.603,
+        "probability_attack": 0.397,
+        "top_attention_features": [
+          "subflow_bwd_packets",
+          "init_win_bytes_forward",
+          "bwd_iat_min"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 12,
+        "is_anomaly": true,
+        "reconstruction_error": 0.690444,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.73
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 13,
+      "metadata": {
+        "flow_id": "192.168.10.25-172.16.0.3-52489-53-6",
+        "source_ip": "192.168.10.25",
+        "destination_ip": "172.16.0.3",
+        "source_port": 52489,
+        "destination_port": 53,
+        "timestamp": "07/07/2017 13:28",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 13,
+        "predicted_label": 0,
+        "confidence": 0.0515,
+        "probability_benign": 0.5258,
+        "probability_attack": 0.4742,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "min_packet_length",
+          "bwd_packet_length_std"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 13,
+        "is_anomaly": true,
+        "reconstruction_error": 0.736198,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.977
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 14,
+      "metadata": {
+        "flow_id": "192.168.10.50-172.16.0.5-60499-80-6",
+        "source_ip": "192.168.10.50",
+        "destination_ip": "172.16.0.5",
+        "source_port": 60499,
+        "destination_port": 80,
+        "timestamp": "07/07/2017 12:25",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 14,
+        "predicted_label": 0,
+        "confidence": 0.1635,
+        "probability_benign": 0.5818,
+        "probability_attack": 0.4182,
+        "top_attention_features": [
+          "total_fwd_packets",
+          "init_win_bytes_forward",
+          "flow_duration"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 14,
+        "is_anomaly": true,
+        "reconstruction_error": 0.722982,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.906
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 15,
+      "metadata": {
+        "flow_id": "192.168.10.47-172.16.0.3-12499-8080-6",
+        "source_ip": "192.168.10.47",
+        "destination_ip": "172.16.0.3",
+        "source_port": 12499,
+        "destination_port": 8080,
+        "timestamp": "07/07/2017 11:21",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 15,
+        "predicted_label": 0,
+        "confidence": 0.2198,
+        "probability_benign": 0.6099,
+        "probability_attack": 0.3901,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "ack_flag_count",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 15,
+        "is_anomaly": true,
+        "reconstruction_error": 0.720732,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.894
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 16,
+      "metadata": {
+        "flow_id": "192.168.10.32-172.16.0.6-37081-53-6",
+        "source_ip": "192.168.10.32",
+        "destination_ip": "172.16.0.6",
+        "source_port": 37081,
+        "destination_port": 53,
+        "timestamp": "07/07/2017 16:56",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 16,
+        "predicted_label": 0,
+        "confidence": 0.1971,
+        "probability_benign": 0.5985,
+        "probability_attack": 0.4015,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "bwd_iat_min",
+          "ack_flag_count"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 16,
+        "is_anomaly": true,
+        "reconstruction_error": 0.698525,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.774
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 17,
+      "metadata": {
+        "flow_id": "192.168.10.50-172.16.0.5-40788-22-6",
+        "source_ip": "192.168.10.50",
+        "destination_ip": "172.16.0.5",
+        "source_port": 40788,
+        "destination_port": 22,
+        "timestamp": "07/07/2017 15:25",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 17,
+        "predicted_label": 0,
+        "confidence": 0.1356,
+        "probability_benign": 0.5678,
+        "probability_attack": 0.4322,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "total_fwd_packets",
+          "flow_duration"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 17,
+        "is_anomaly": true,
+        "reconstruction_error": 0.72898,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.938
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 18,
+      "metadata": {
+        "flow_id": "192.168.10.48-172.16.0.2-5868-445-6",
+        "source_ip": "192.168.10.48",
+        "destination_ip": "172.16.0.2",
+        "source_port": 5868,
+        "destination_port": 445,
+        "timestamp": "07/07/2017 8:24",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 18,
+        "predicted_label": 0,
+        "confidence": 0.1786,
+        "probability_benign": 0.5893,
+        "probability_attack": 0.4107,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "min_packet_length",
+          "ack_flag_count"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 18,
+        "is_anomaly": true,
+        "reconstruction_error": 0.735382,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.973
+      },
+      "conflict": "AMBIGUOUS_ANOMALY_MANUAL_REVIEW",
+      "shap_explanation": null
+    },
+    {
+      "flow_index": 19,
+      "metadata": {
+        "flow_id": "192.168.10.52-172.16.0.8-52374-22-6",
+        "source_ip": "192.168.10.52",
+        "destination_ip": "172.16.0.8",
+        "source_port": 52374,
+        "destination_port": 22,
+        "timestamp": "07/07/2017 12:26",
+        "protocol": "TCP"
+      },
+      "classification": {
+        "flow_index": 19,
+        "predicted_label": 1,
+        "confidence": 0.0021,
+        "probability_benign": 0.499,
+        "probability_attack": 0.501,
+        "top_attention_features": [
+          "init_win_bytes_forward",
+          "bwd_packet_length_std",
+          "min_packet_length"
+        ]
+      },
+      "anomaly": {
+        "flow_index": 19,
+        "is_anomaly": true,
+        "reconstruction_error": 0.739789,
+        "threshold": 0.185111,
+        "deviation_ratio": 3.996
+      },
+      "conflict": "CONCORDANT_ATTACK",
+      "shap_explanation": {
+        "flow_index": 19,
+        "base_value": 0.5166,
+        "top_features": [
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.030311,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -1.0149,
+            "shap_value": -0.026298,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "total_length_of_fwd_packets",
+            "feature_value": -0.6382,
+            "shap_value": -0.025601,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023324,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9906,
+            "shap_value": 0.014553,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_packet_length_min",
+            "feature_value": -1.0128,
+            "shap_value": 0.010082,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "positive_contributors": [
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.030311,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9906,
+            "shap_value": 0.014553,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_packet_length_min",
+            "feature_value": -1.0128,
+            "shap_value": 0.010082,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "negative_contributors": [
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -1.0149,
+            "shap_value": -0.026298,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "total_length_of_fwd_packets",
+            "feature_value": -0.6382,
+            "shap_value": -0.025601,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023324,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          }
+        ],
+        "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+        "method": "KernelSHAP"
+      }
+    }
+  ],
+  "shap_summary": {
+    "explained_flows": 2,
+    "explanations": [
+      {
+        "flow_index": 3,
+        "base_value": 0.5166,
+        "top_features": [
+          {
+            "feature_name": "total_backward_packets",
+            "feature_value": -1.5,
+            "shap_value": 0.027206,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -0.9837,
+            "shap_value": -0.026098,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "flow_duration",
+            "feature_value": -0.6326,
+            "shap_value": -0.025754,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9887,
+            "shap_value": 0.02559,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023751,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.014193,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "positive_contributors": [
+          {
+            "feature_name": "total_backward_packets",
+            "feature_value": -1.5,
+            "shap_value": 0.027206,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9887,
+            "shap_value": 0.02559,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.014193,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "negative_contributors": [
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -0.9837,
+            "shap_value": -0.026098,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "flow_duration",
+            "feature_value": -0.6326,
+            "shap_value": -0.025754,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023751,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          }
+        ],
+        "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+        "method": "KernelSHAP"
+      },
+      {
+        "flow_index": 19,
+        "base_value": 0.5166,
+        "top_features": [
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.030311,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -1.0149,
+            "shap_value": -0.026298,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "total_length_of_fwd_packets",
+            "feature_value": -0.6382,
+            "shap_value": -0.025601,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023324,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9906,
+            "shap_value": 0.014553,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_packet_length_min",
+            "feature_value": -1.0128,
+            "shap_value": 0.010082,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "positive_contributors": [
+          {
+            "feature_name": "fwd_packet_length_mean",
+            "feature_value": -1.0135,
+            "shap_value": 0.030311,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "min_packet_length",
+            "feature_value": -0.9906,
+            "shap_value": 0.014553,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "bwd_packet_length_min",
+            "feature_value": -1.0128,
+            "shap_value": 0.010082,
+            "directional_impact": "INCREASES_ATTACK_RISK"
+          }
+        ],
+        "negative_contributors": [
+          {
+            "feature_name": "bwd_iat_min",
+            "feature_value": -1.0149,
+            "shap_value": -0.026298,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "total_length_of_fwd_packets",
+            "feature_value": -0.6382,
+            "shap_value": -0.025601,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          },
+          {
+            "feature_name": "ack_flag_count",
+            "feature_value": -1.0,
+            "shap_value": -0.023324,
+            "directional_impact": "DECREASES_ATTACK_RISK"
+          }
+        ],
+        "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+        "method": "KernelSHAP"
+      }
+    ],
+    "causality_disclaimer": "SCIENTIFIC NOTICE: Shapley feature attributions quantify marginal mathematical contributions of telemetry attributes to the model's classification score. Attributions represent correlative decision factors within the trained model and must NOT be interpreted as physical proof of causality, vulnerability exploitation, or malicious intent.",
+    "figure_path": "C:\\Users\\venum\\.gemini\\antigravity-ide\\scratch\\CyberSentinel\\reports\\figures\\shap_feature_importance.png"
+  }
+}

@@ -3,7 +3,7 @@ Configurable Multi-Criteria Risk Scoring Engine for CyberSentinel.
 Quantifies threat risk (0-100) by combining supervised classification probabilities,
 unsupervised reconstruction error deviations, consensus agreement, and asset sensitivity.
 """
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 import logging
 from src.agents.protocols import (
     SeverityLevel,
@@ -26,14 +26,56 @@ class RiskScoringEngine:
         weight_anomaly: float = 0.35,
         weight_consensus: float = 0.15,
         weight_asset_sensitivity: float = 0.10,
+        threshold_critical: float = 75.0,
+        threshold_high: float = 50.0,
+        threshold_medium: float = 25.0,
     ):
         self.w_cls = weight_classification
         self.w_anom = weight_anomaly
         self.w_cons = weight_consensus
         self.w_asset = weight_asset_sensitivity
 
+        # Configurable Severity Thresholds
+        self.th_critical = threshold_critical
+        self.th_high = threshold_high
+        self.th_medium = threshold_medium
+
         # Sensitive administrative and infrastructure service ports
         self.sensitive_ports = {22, 21, 23, 3389, 445, 135, 139, 80, 443, 8080, 53}
+
+    def update_configuration(
+        self,
+        weights: Optional[Dict[str, float]] = None,
+        thresholds: Optional[Dict[str, float]] = None,
+    ):
+        """Dynamically update risk scoring parameters and severity thresholds."""
+        if weights:
+            self.w_cls = weights.get("classification", self.w_cls)
+            self.w_anom = weights.get("anomaly", self.w_anom)
+            self.w_cons = weights.get("consensus", self.w_cons)
+            self.w_asset = weights.get("asset", self.w_asset)
+        if thresholds:
+            self.th_critical = thresholds.get("critical", self.th_critical)
+            self.th_high = thresholds.get("high", self.th_high)
+            self.th_medium = thresholds.get("medium", self.th_medium)
+
+    def get_scoring_method_documentation(self) -> str:
+        """Return comprehensive mathematical documentation of the scoring method."""
+        return (
+            "CyberSentinel Multi-Criteria Risk Scoring Formulation:\n"
+            "Risk Score = 100 * [ w_cls * P(Attack) + w_anom * min(1.0, MSE / (2 * tau*)) "
+            "+ w_cons * C + w_asset * S_port ]\n\n"
+            f"Active Parameters:\n"
+            f"  - Supervised Weight (w_cls)      : {self.w_cls:.2f} (Discriminative TabNet probability)\n"
+            f"  - Unsupervised Weight (w_anom)   : {self.w_anom:.2f} (Reconstruction error deviation ratio)\n"
+            f"  - Consensus Weight (w_cons)      : {self.w_cons:.2f} (Model agreement coefficient)\n"
+            f"  - Asset Sensitivity (w_asset)    : {self.w_asset:.2f} (Critical port multiplier)\n\n"
+            f"Severity Tier Thresholds:\n"
+            f"  - CRITICAL : Score >= {self.th_critical:.1f}\n"
+            f"  - HIGH     : {self.th_high:.1f} <= Score < {self.th_critical:.1f}\n"
+            f"  - MEDIUM   : {self.th_medium:.1f} <= Score < {self.th_high:.1f}\n"
+            f"  - LOW      : Score < {self.th_medium:.1f}\n"
+        )
 
     def score_single_finding(self, finding: SuspiciousFinding) -> float:
         """
@@ -89,14 +131,17 @@ class RiskScoringEngine:
         blended = (0.6 * max_score + 0.4 * mean_score) * volume_factor
         return round(min(100.0, max(0.0, blended)), 2)
 
-    @staticmethod
-    def map_score_to_severity(score: float) -> SeverityLevel:
-        """Map 0-100 numerical risk score to categorical severity."""
-        if score >= 75.0:
+    def map_score_to_severity(self, score: float) -> SeverityLevel:
+        """Map 0-100 numerical risk score to categorical severity using configurable thresholds."""
+        th_crit = getattr(self, "th_critical", 75.0)
+        th_hi = getattr(self, "th_high", 50.0)
+        th_med = getattr(self, "th_medium", 25.0)
+
+        if score >= th_crit:
             return SeverityLevel.CRITICAL
-        elif score >= 50.0:
+        elif score >= th_hi:
             return SeverityLevel.HIGH
-        elif score >= 25.0:
+        elif score >= th_med:
             return SeverityLevel.MEDIUM
         else:
             return SeverityLevel.LOW
@@ -171,3 +216,4 @@ class RiskScoringEngine:
             )
 
         return actions
+

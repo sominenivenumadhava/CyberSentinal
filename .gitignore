@@ -67,4 +67,11 @@ htmlcov/
 # Node / React Frontend
 frontend/node_modules/
 frontend/build/
+frontend/dist/
 .npm
+
+# Temporary Uploads & Analysis Artifacts
+data/uploads/*
+!data/uploads/.gitkeep
+reports/investigation_ANL-*.json
+

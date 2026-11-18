@@ -72,7 +72,20 @@ def run_demo():
 
     print("\n--- AGENT EXECUTION TRACE ---")
     for agent_role, tr in trace.items():
-        print(f"  - {agent_role:<30}: Status={tr['status']:<18} Latency={tr['latency_ms']:.2f} ms")
+        if "latency_ms" in tr:
+            print(f"  - {agent_role:<30}: Status={tr['status']:<18} Latency={tr['latency_ms']:.2f} ms")
+        else:
+            print(f"  - {agent_role:<30}: Status={tr['status']:<18} Method={tr.get('method', 'N/A')}")
+
+    # Display SHAP explainability insights if available
+    shap_summary = result.get("shap_summary")
+    if shap_summary and shap_summary.get("explanations"):
+        print("\n--- EXPLAINABLE AI (SHAP ATTRIBUTIONS) ---")
+        for exp in shap_summary["explanations"][:2]:
+            print(f"  Candidate Flow #{exp['flow_index']} (Baseline Expected Log-Odds: {exp['base_value']}):")
+            for feat in exp.get("positive_contributors", [])[:3]:
+                print(f"    [+] {feat['feature_name']:<30}: raw={feat['feature_value']:<10} SHAP=+{feat['shap_value']:.4f} ({feat['directional_impact']})")
+        print(f"  Notice: {shap_summary.get('causality_disclaimer')}")
 
     print("\n--- CORRELATED INCIDENTS ---")
     for idx, inc in enumerate(risk_rep["correlated_incidents"][:3], 1):
@@ -97,3 +110,4 @@ def run_demo():
 
 if __name__ == "__main__":
     run_demo()
+

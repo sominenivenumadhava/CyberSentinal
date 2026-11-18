@@ -71,3 +71,24 @@ class DatasetRegistry(Base):
     file_hash_sha256 = Column(String(64), nullable=True)
     metadata_json = Column(JSON, nullable=True)
 
+
+class AnalysisJob(Base):
+    """Execution record for an end-to-end multi-agent threat analysis."""
+    __tablename__ = "analysis_jobs"
+
+    id = Column(String(100), primary_key=True, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    completed_at = Column(DateTime, nullable=True)
+    status = Column(String(50), default="QUEUED", index=True)  # QUEUED, PROCESSING, COMPLETED, FAILED
+    filename = Column(String(255), nullable=True)
+    total_flows = Column(Integer, default=0)
+    attacks_detected = Column(Integer, default=0)
+    anomalies_detected = Column(Integer, default=0)
+    correlated_incidents_count = Column(Integer, default=0)
+    risk_score = Column(Float, nullable=True)
+    severity = Column(String(20), nullable=True)
+    executive_summary = Column(Text, nullable=True)
+    results_json = Column(JSON, nullable=True)
+    error_message = Column(Text, nullable=True)
+
+

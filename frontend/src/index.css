@@ -2,12 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  background-color: #0b0f19;
-  color: #f3f4f6;
+@layer base {
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+    background-color: #14213d;
+    color: #f4eded;
+    overflow-x: hidden;
+  }
 }
 
+/* Custom CyberSentinel Scrollbar strictly adhering to the 3-color palette */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1222;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b457c;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6b5b;
+}
+
+/* Pulse animation for active threat alerts */
+@keyframes coralPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 91, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 107, 91, 0);
+  }
+}
+
+.pulse-coral {
+  animation: coralPulse 2s infinite;
+}

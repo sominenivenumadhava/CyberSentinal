@@ -86,3 +86,4 @@ class BaseAgent(ABC):
     def process(self, message: AgentMessage) -> AgentMessage:
         """Concrete agent reasoning and execution logic."""
         pass
+

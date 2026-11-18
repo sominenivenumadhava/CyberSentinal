@@ -125,6 +125,7 @@ class RiskAssessmentAgent(BaseAgent):
             correlated_incidents=incidents,
             recommended_actions=all_recommended_actions,
             executive_summary=exec_summary,
+            scoring_method_documentation=self.risk_engine.get_scoring_method_documentation(),
         )
 
         logger.info(f"[{self.role.value}] Completed risk assessment: Severity={overall_severity.value}, Score={overall_score}")

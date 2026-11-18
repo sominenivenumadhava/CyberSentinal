@@ -88,14 +88,16 @@ class DataProcessingAgent(BaseAgent):
         csv_path = payload.get("csv_path")
 
         # 1. Parse input into DataFrame
-        if isinstance(raw_data, list):
+        if isinstance(raw_data, pd.DataFrame):
+            df = raw_data.copy()
+        elif isinstance(raw_data, list):
             df = pd.DataFrame(raw_data)
         elif isinstance(raw_data, dict):
             df = pd.DataFrame(raw_data)
         elif csv_path:
             df = pd.read_csv(csv_path)
         else:
-            raise ValueError("Payload must contain 'data' (records) or 'csv_path'.")
+            raise ValueError("Payload must contain 'data' (records/DataFrame) or 'csv_path'.")
 
         # 2. Validate input
         val_report = self.validate_flow_records(df)

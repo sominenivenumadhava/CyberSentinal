@@ -135,7 +135,7 @@ def clean_column_name(col: str) -> str:
     Standardize raw column name by stripping whitespace, converting to lowercase,
     and replacing special characters with underscores.
     """
-    cleaned = col.strip().lower()
+    cleaned = str(col).strip().lower()
     cleaned = cleaned.replace(" / ", "_").replace("/", "_").replace(" ", "_")
     cleaned = cleaned.replace("-", "_").replace(".", "_")
     # Clean up double underscores

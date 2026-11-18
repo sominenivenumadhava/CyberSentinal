@@ -1,0 +1,151 @@
+{
+  "experiment_1_tabnet": {
+    "accuracy": 0.5267141585040072,
+    "precision": 0.2581888246628131,
+    "recall": 0.47771836007130125,
+    "f1_score": 0.33520950594121324,
+    "false_positive_rate": 0.456973293768546,
+    "roc_auc": 0.5121566511686951,
+    "pr_auc": 0.24789686633730412,
+    "confusion_matrix": {
+      "tn": 915,
+      "fp": 770,
+      "fn": 293,
+      "tp": 268
+    },
+    "latency_total_s": 0.09329290001187474,
+    "latency_per_sample_ms": 0.04153735530359517,
+    "throughput_samples_per_s": 24074.715221781284
+  },
+  "experiment_2_autoencoder": {
+    "accuracy": 0.26135351736420304,
+    "precision": 0.25180831826401445,
+    "recall": 0.9928698752228164,
+    "f1_score": 0.40173097728092316,
+    "false_positive_rate": 0.9821958456973294,
+    "roc_auc": 0.4906044208889383,
+    "pr_auc": 0.24762538553233174,
+    "confusion_matrix": {
+      "tn": 30,
+      "fp": 1655,
+      "fn": 4,
+      "tp": 557
+    },
+    "threshold": 0.18511146312259666,
+    "latency_total_s": 0.0012793999921996146,
+    "latency_per_sample_ms": 0.0005696349030274331,
+    "throughput_samples_per_s": 1755510.4062010767
+  },
+  "experiment_3_dual_sensor": {
+    "consensus": {
+      "accuracy": 0.5320569902048086,
+      "precision": 0.25980392156862747,
+      "recall": 0.47237076648841353,
+      "f1_score": 0.33523086654016443,
+      "false_positive_rate": 0.44807121661721067,
+      "roc_auc": 0.5155482209069222,
+      "pr_auc": 0.24912993287210106,
+      "confusion_matrix": {
+        "tn": 930,
+        "fp": 755,
+        "fn": 296,
+        "tp": 265
+      }
+    },
+    "union": {
+      "accuracy": 0.2560106856634016,
+      "precision": 0.25112107623318386,
+      "recall": 0.9982174688057041,
+      "f1_score": 0.40128986026513797,
+      "false_positive_rate": 0.9910979228486647,
+      "roc_auc": 0.5155482209069222,
+      "pr_auc": 0.24912993287210106,
+      "confusion_matrix": {
+        "tn": 15,
+        "fp": 1670,
+        "fn": 1,
+        "tp": 560
+      }
+    },
+    "blended": {
+      "accuracy": 0.2497773820124666,
+      "precision": 0.2497773820124666,
+      "recall": 1.0,
+      "f1_score": 0.39971499821873885,
+      "false_positive_rate": 1.0,
+      "roc_auc": 0.5155482209069222,
+      "pr_auc": 0.24912993287210106,
+      "confusion_matrix": {
+        "tn": 0,
+        "fp": 1685,
+        "fn": 0,
+        "tp": 561
+      }
+    },
+    "disagreement": {
+      "total_disagreements": 1210,
+      "disagreement_percentage": 53.87355298308103,
+      "tabnet_attack_ae_benign": 18,
+      "tabnet_benign_ae_anomaly": 1192
+    }
+  },
+  "experiment_4_multi_agent": {
+    "metrics_operational_th70": {
+      "accuracy": 0.5307212822796082,
+      "precision": 0.25374625374625376,
+      "recall": 0.45276292335115864,
+      "f1_score": 0.32522407170294493,
+      "false_positive_rate": 0.4433234421364985,
+      "roc_auc": 0.5011139497611831,
+      "pr_auc": 0.25039207301170163,
+      "confusion_matrix": {
+        "tn": 938,
+        "fp": 747,
+        "fn": 307,
+        "tp": 254
+      }
+    },
+    "metrics_critical_th75": {
+      "accuracy": 0.6540516473731077,
+      "precision": 0.25565610859728505,
+      "recall": 0.2014260249554367,
+      "f1_score": 0.22532402791625125,
+      "false_positive_rate": 0.19525222551928784,
+      "roc_auc": 0.5011139497611831,
+      "pr_auc": 0.25039207301170163,
+      "confusion_matrix": {
+        "tn": 1356,
+        "fp": 329,
+        "fn": 448,
+        "tp": 113
+      }
+    },
+    "profiling": {
+      "batch_500_latency_s": 2.4420909000036772,
+      "processing_time_per_1000_records_s": 4.8841818000073545,
+      "peak_memory_mb": 10.688718795776367,
+      "trace_latencies_ms": {
+        "DataProcessingAgent": 341.46809999947436,
+        "AttackClassificationAgent": 109.16019999422133,
+        "AnomalyDetectionAgent": 20.16479999292642,
+        "ThreatInvestigationAgent": 66.78379999357276,
+        "ExplainabilityEngine": null,
+        "RiskAssessmentAgent": 59.753999987151474
+      }
+    },
+    "investigation_quality": {
+      "incidents_correlated": 50,
+      "pattern_types": [
+        "BRUTE_FORCE_AUTHENTICATION_ATTEMPT",
+        "PORT_SCAN_RECONNAISSANCE"
+      ],
+      "recommended_actions_count": 150,
+      "human_in_loop_approval_rate_pct": 100.0,
+      "evidence_coverage": {
+        "metadata_preservation_pct": 100.0,
+        "attention_mask_coverage_pct": 100.0,
+        "shap_top_k_attribution_active": true
+      }
+    }
+  }
+}

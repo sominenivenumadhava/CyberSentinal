@@ -235,6 +235,11 @@ def test_threat_investigation_agent_independent():
     incident = payload["incidents"][0]
     assert incident["source_ip"] == "10.0.0.99"
     assert incident["pattern_type"] == "PORT_SCAN_RECONNAISSANCE"
+    # Verify timeline and uncertainty metrics
+    assert "timeline" in incident
+    assert len(incident["timeline"]) == 3
+    assert "uncertainty_score" in incident
+    assert "analyst_review_priority" in incident
     # Verify conflict detection: flow 2 is ambiguous anomaly
     assert payload["findings"][2]["conflict"] == ConflictStatus.AMBIGUOUS_ANOMALY.value
 
@@ -280,6 +285,8 @@ def test_risk_assessment_agent_and_engine_independent():
     payload = response.payload
     assert payload["overall_risk_score"] > 50.0
     assert payload["severity"] in (SeverityLevel.HIGH.value, SeverityLevel.CRITICAL.value)
+    assert "scoring_method_documentation" in payload
+    assert "Risk Score = 100" in engine.get_scoring_method_documentation()
     # Ensure playbooks require human approval (never auto-block)
     for action in payload["recommended_actions"]:
         assert action["requires_approval"] is True
@@ -323,6 +330,7 @@ def test_central_coordinator_complete_workflow(mock_flow_records, tmp_path):
     risk_rep = result["risk_report"]
     assert risk_rep["total_flows_evaluated"] == len(mock_flow_records)
     assert len(risk_rep["correlated_incidents"]) >= 1
+    assert "ExplainabilityEngine" in trace
 
     # Verify SQLite DB persistence
     db = SessionLocal()

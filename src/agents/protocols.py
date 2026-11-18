@@ -77,6 +77,7 @@ class SuspiciousFinding(BaseModel):
     classification: FlowClassification
     anomaly: FlowAnomaly
     conflict: ConflictStatus
+    shap_explanation: Optional[Dict[str, Any]] = None
 
 
 class InvestigationIncident(BaseModel):
@@ -91,6 +92,9 @@ class InvestigationIncident(BaseModel):
     flow_count: int
     findings: List[SuspiciousFinding]
     evidence_summary: str
+    timeline: List[Dict[str, Any]] = Field(default_factory=list)
+    uncertainty_score: float = 0.0
+    analyst_review_priority: str = "STANDARD"
 
 
 class RecommendedAction(BaseModel):
@@ -114,6 +118,8 @@ class RiskReport(BaseModel):
     correlated_incidents: List[InvestigationIncident]
     recommended_actions: List[RecommendedAction]
     executive_summary: str
+    shap_summary: Optional[Dict[str, Any]] = None
+    scoring_method_documentation: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
